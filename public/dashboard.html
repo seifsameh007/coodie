@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SCIPTIVITY - Dashboard</title>
+    <meta name="description" content="SCIPTIVITY Dashboard - Manage your projects">
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+    <div class="dashboard-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-brand">SCIPTIVITY</div>
+            <nav class="sidebar-nav">
+                <button class="sidebar-item active" data-section="projects" onclick="switchSection('projects')">
+                    <span class="icon">📁</span>
+                    <span data-i18n="projects">Projects</span>
+                </button>
+                <button class="sidebar-item" data-section="accounts" onclick="switchSection('accounts')">
+                    <span class="icon">👤</span>
+                    <span data-i18n="accounts">Accounts</span>
+                </button>
+                <button class="sidebar-item" data-section="members" onclick="switchSection('members')">
+                    <span class="icon">👥</span>
+                    <span data-i18n="members">Members</span>
+                </button>
+                <button class="sidebar-item" data-section="releases" onclick="switchSection('releases')">
+                    <span class="icon">🚀</span>
+                    <span data-i18n="releases">Releases</span>
+                </button>
+                <button class="sidebar-item" data-section="ideas" onclick="switchSection('ideas')">
+                    <span class="icon">💡</span>
+                    <span data-i18n="ideas">Ideas</span>
+                </button>
+                <button class="sidebar-item" data-section="nameTerms" onclick="switchSection('nameTerms')">
+                    <span class="icon">📝</span>
+                    <span data-i18n="nameTerms">Names / Terms</span>
+                </button>
+                <button class="sidebar-item" data-section="finance" onclick="switchSection('finance')">
+                    <span class="icon">💰</span>
+                    <span data-i18n="finance">Finance</span>
+                </button>
+            </nav>
+            <div class="sidebar-bottom">
+                <button class="sidebar-item" onclick="toggleTheme()" id="themeToggle">
+                    <span class="icon">🌙</span>
+                    <span data-i18n="darkMode">Dark Mode</span>
+                </button>
+                <button class="sidebar-item" onclick="toggleLanguage()" id="langToggle">
+                    <span class="icon">🌐</span>
+                    <span>AR</span>
+                </button>
+                <button class="sidebar-item" onclick="logout()">
+                    <span class="icon">🚪</span>
+                    <span data-i18n="logout">Logout</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Projects Section -->
+            <section id="section-projects">
+                <div class="content-header">
+                    <h1 class="content-title" data-i18n="projects">Projects</h1>
+                    <button class="add-btn" onclick="openAddProjectModal()">
+                        <span>+</span>
+                        <span data-i18n="addProject">Add Project</span>
+                    </button>
+                </div>
+                <div class="projects-grid" id="projectsGrid">
+                    <!-- Project cards rendered by JS -->
+                </div>
+                <div class="no-projects" id="noProjects" style="display:none;">
+                    <div class="icon">📂</div>
+                    <p data-i18n="noProjects">No projects yet. Create your first project!</p>
+                </div>
+            </section>
+
+            <!-- Other sections (Coming Soon) -->
+            <section id="section-accounts" style="display:none;">
+                <div class="coming-soon-section">
+                    <div class="icon">👤</div>
+                    <h2 data-i18n="accounts">Accounts</h2>
+                    <p data-i18n="comingSoon">Coming Soon</p>
+                </div>
+            </section>
+            <section id="section-members" style="display:none;">
+                <div class="coming-soon-section">
+                    <div class="icon">👥</div>
+                    <h2 data-i18n="members">Members</h2>
+                    <p data-i18n="comingSoon">Coming Soon</p>
+                </div>
+            </section>
+            <section id="section-releases" style="display:none;">
+                <div class="coming-soon-section">
+                    <div class="icon">🚀</div>
+                    <h2 data-i18n="releases">Releases</h2>
+                    <p data-i18n="comingSoon">Coming Soon</p>
+                </div>
+            </section>
+            <section id="section-ideas" style="display:none;">
+                <div class="coming-soon-section">
+                    <div class="icon">💡</div>
+                    <h2 data-i18n="ideas">Ideas</h2>
+                    <p data-i18n="comingSoon">Coming Soon</p>
+                </div>
+            </section>
+            <section id="section-nameTerms" style="display:none;">
+                <div class="coming-soon-section">
+                    <div class="icon">📝</div>
+                    <h2 data-i18n="nameTerms">Names / Terms</h2>
+                    <p data-i18n="comingSoon">Coming Soon</p>
+                </div>
+            </section>
+            <section id="section-finance" style="display:none;">
+                <div class="coming-soon-section">
+                    <div class="icon">💰</div>
+                    <h2 data-i18n="finance">Finance</h2>
+                    <p data-i18n="comingSoon">Coming Soon</p>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Add Project Modal -->
+    <div class="modal-overlay" id="addProjectModal">
+        <div class="modal">
+            <h2 class="modal-title" data-i18n="addProject">Add Project</h2>
+            <form class="modal-form" id="addProjectForm" onsubmit="handleAddProject(event)">
+                <div class="input-group">
+                    <label data-i18n="projectName">Project Name</label>
+                    <div class="input-wrapper">
+                        <input type="text" id="newProjectName" data-i18n="projectName" placeholder="Project Name"
+                            required>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label data-i18n="startDate">Start Date</label>
+                    <input type="date" id="newProjectStartDate">
+                </div>
+                <div class="input-group">
+                    <label data-i18n="deadline">Deadline</label>
+                    <div class="deadline-toggle">
+                        <button type="button" class="active" onclick="setDeadlineType('open', this)"
+                            data-i18n="deadlineOpen">Open (No Deadline)</button>
+                        <button type="button" onclick="setDeadlineType('fixed', this)" data-i18n="deadlineFixed">Set
+                            Date</button>
+                    </div>
+                    <input type="date" id="newProjectDeadline" style="display:none; margin-top:8px;">
+                </div>
+                <div class="input-group">
+                    <label data-i18n="projectType">Project Type</label>
+                    <select id="newProjectType">
+                        <option value="personal" data-i18n="typePersonal">Personal</option>
+                        <option value="work" data-i18n="typeWork">Work</option>
+                        <option value="help" data-i18n="typeHelp">Help</option>
+                    </select>
+                </div>
+                <div class="modal-actions">
+                    <button type="submit" class="btn-primary" data-i18n="createProject">Create Project</button>
+                    <button type="button" class="btn-secondary" onclick="closeAddProjectModal()"
+                        data-i18n="cancel">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="/js/main.js"></script>
+    <script src="/js/dashboard.js"></script>
+</body>
+
+</html>

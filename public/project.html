@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SCIPTIVITY - Project</title>
+    <meta name="description" content="SCIPTIVITY Project Detail">
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <button class="top-bar-btn" id="themeToggle" onclick="toggleTheme()" title="Toggle Theme">🌙</button>
+        <button class="top-bar-btn" id="langToggle" onclick="toggleLanguage()" title="Toggle Language">AR</button>
+    </div>
+
+    <div class="project-detail" id="projectDetail">
+        <!-- Header -->
+        <div class="project-detail-header">
+            <a class="back-btn" href="/dashboard">
+                <span>←</span>
+                <span data-i18n="back">Back</span>
+            </a>
+            <button class="delete-project-btn" onclick="confirmDeleteProject()">
+                <span>🗑️</span>
+                <span data-i18n="deleteProject">Delete Project</span>
+            </button>
+        </div>
+
+        <!-- Project Name -->
+        <div class="editable-field" id="nameField">
+            <h1 class="project-name-display" id="projectName">Loading...</h1>
+            <button class="edit-btn" onclick="editField('name')" title="Edit">✏️</button>
+        </div>
+
+        <!-- Info Fields -->
+        <div class="editable-field">
+            <span class="label" data-i18n="startDate">Start Date</span>
+            <span class="value" id="startDateValue">-</span>
+            <button class="edit-btn" onclick="editField('startDate')" title="Edit">✏️</button>
+        </div>
+
+        <div class="editable-field">
+            <span class="label" data-i18n="deadline">Deadline</span>
+            <span class="value" id="deadlineValue">-</span>
+            <button class="edit-btn" onclick="editField('deadline')" title="Edit">✏️</button>
+        </div>
+
+        <div class="editable-field">
+            <span class="label" data-i18n="projectType">Project Type</span>
+            <span class="value" id="typeValue">-</span>
+            <button class="edit-btn" onclick="editField('type')" title="Edit">✏️</button>
+        </div>
+
+        <!-- Script Section -->
+        <div class="detail-section" id="scriptSection">
+            <div class="detail-section-title">
+                <span data-i18n="script">Script</span>
+                <button class="add-btn" onclick="addScriptSection()" style="padding:8px 16px; font-size:13px;">
+                    <span>+</span>
+                    <span data-i18n="addSection">Add Section</span>
+                </button>
+            </div>
+            <div id="scriptSections">
+                <!-- Script sections rendered by JS -->
+            </div>
+        </div>
+
+        <!-- Notes Section -->
+        <div class="detail-section">
+            <div class="detail-section-title">
+                <span data-i18n="notes">Notes</span>
+                <span id="notesSaveStatus" style="font-size:12px; color:var(--text-muted);"></span>
+            </div>
+            <textarea class="notes-textarea" id="notesTextarea" data-i18n="sectionContent" placeholder="Write here..."
+                oninput="autoSaveNotes()"></textarea>
+        </div>
+
+        <!-- Files Section -->
+        <div class="detail-section">
+            <div class="detail-section-title">
+                <span data-i18n="files">Files</span>
+            </div>
+            <div class="files-list" id="filesList">
+                <!-- Files rendered by JS -->
+            </div>
+            <input type="file" id="fileInput" multiple style="display:none;" onchange="handleFileUpload(event)">
+            <button class="upload-btn" onclick="document.getElementById('fileInput').click()">
+                <span>📎</span>
+                <span data-i18n="uploadFiles">Upload Files</span>
+            </button>
+        </div>
+
+        <!-- Completion Section -->
+        <div class="detail-section">
+            <div class="detail-section-title">
+                <span data-i18n="completion">Completion</span>
+            </div>
+            <div class="completion-input-area">
+                <input type="number" class="completion-input" id="completionInput" min="0" max="100" value="0"
+                    oninput="handleCompletionChange()">
+                <span style="font-weight:700; font-size:18px;">%</span>
+                <div class="completion-bar-large">
+                    <div class="fill" id="completionBarFill" style="width:0%"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Save Indicator -->
+    <div class="save-indicator" id="saveIndicator"></div>
+
+    <!-- Confirm Delete Overlay -->
+    <div class="confirm-overlay" id="confirmDeleteOverlay">
+        <div class="confirm-box">
+            <p data-i18n="confirmDelete">Are you sure you want to delete this?</p>
+            <div class="confirm-actions">
+                <button class="btn-danger" onclick="deleteProject()" data-i18n="yes">Yes</button>
+                <button class="btn-secondary" onclick="closeConfirmDelete()" data-i18n="no">No</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Field Modal -->
+    <div class="modal-overlay" id="editFieldModal">
+        <div class="modal">
+            <h2 class="modal-title" id="editFieldTitle">Edit</h2>
+            <form class="modal-form" onsubmit="saveFieldEdit(event)">
+                <div id="editFieldContent">
+                    <!-- Dynamic edit content -->
+                </div>
+                <div class="modal-actions">
+                    <button type="submit" class="btn-primary" data-i18n="save">Save</button>
+                    <button type="button" class="btn-secondary" onclick="closeEditField()"
+                        data-i18n="cancel">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="/js/main.js"></script>
+    <script src="/js/project.js"></script>
+</body>
+
+</html>

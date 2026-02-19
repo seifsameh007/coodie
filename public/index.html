@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SCIPTIVITY</title>
+  <meta name="description" content="SCIPTIVITY - Your creative project management space">
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <!-- Top Bar -->
+  <div class="top-bar">
+    <button class="top-bar-btn" id="themeToggle" onclick="toggleTheme()" title="Toggle Theme">🌙</button>
+    <button class="top-bar-btn" id="langToggle" onclick="toggleLanguage()" title="Toggle Language">AR</button>
+  </div>
+
+  <!-- Welcome Page -->
+  <div class="welcome-container" id="welcomePage">
+    <!-- Floating particles -->
+    <div class="particle" style="width:200px;height:200px;top:10%;left:10%;animation-delay:0s;"></div>
+    <div class="particle" style="width:150px;height:150px;top:60%;right:15%;animation-delay:5s;"></div>
+    <div class="particle" style="width:100px;height:100px;top:30%;right:30%;animation-delay:10s;"></div>
+    <div class="particle" style="width:250px;height:250px;bottom:10%;left:30%;animation-delay:3s;"></div>
+    <div class="particle" style="width:80px;height:80px;top:50%;left:50%;animation-delay:7s;"></div>
+
+    <h1 class="welcome-brand" data-i18n="brandName">SCIPTIVITY</h1>
+    <p class="welcome-subtitle" data-i18n="welcomeSubtitle">Your creative project management space</p>
+    <button class="welcome-start-btn" onclick="window.location.href='/auth'" data-i18n="startBtn">Get Started</button>
+  </div>
+
+  <script src="/js/main.js"></script>
+  <script>
+    // If already logged in, redirect to dashboard
+    if (getToken()) {
+      window.location.href = '/dashboard';
+    }
+  </script>
+</body>
+</html>
